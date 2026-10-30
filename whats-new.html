@@ -1,0 +1,268 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="What's new in the Drawvisio/n tester build.">
+<title>What's new · Drawvisio/n</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500&family=Hanken+Grotesk:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: one calm column on warm paper; generous whitespace, serif headlines, quiet sans body, one clay accent. */
+:root {
+  --paper: #f4f1e8;
+  --card: #fbf9f3;
+  --ink: #1f1e1b;
+  --ink-2: #5e5b52;
+  --rule: #dedacd;
+  --accent: #c2603e;
+  --accent-soft: #f1e2d6;
+  --ok: #3f7a52;
+  --warn: #a8641c;
+  --display: "Newsreader", "Iowan Old Style", Georgia, serif;
+  --body: "Hanken Grotesk", "Segoe UI", Helvetica, Arial, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --paper: #1c1b18; --card: #24231f; --ink: #eeeae0; --ink-2: #aba697; --rule: #393630;
+  --accent: #e08a68; --accent-soft: #3a2a22; --ok: #84c595; --warn: #e4ac68; color-scheme: dark } }
+:root[data-theme="dark"] {
+  --paper: #1c1b18; --card: #24231f; --ink: #eeeae0; --ink-2: #aba697; --rule: #393630;
+  --accent: #e08a68; --accent-soft: #3a2a22; --ok: #84c595; --warn: #e4ac68; color-scheme: dark }
+
+* { box-sizing: border-box }
+body { background: var(--paper); color: var(--ink); font: 400 17px/1.65 var(--body);
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 20px 56px }
+.sheet { max-width: 1080px; margin: 0 auto }
+.inner { display: grid }
+h1, h2, h3 { font-family: var(--display); font-weight: 400; text-wrap: balance; line-height: 1.12; margin: 0; letter-spacing: -0.015em }
+h1 { font-size: clamp(2.4rem, 6vw, 4.2rem) }
+h2 { font-size: clamp(1.7rem, 3.6vw, 2.5rem) }
+h3 { font-size: 1.3rem }
+p { margin: 0; max-width: 62ch }
+a { color: var(--accent) }
+.label { font: 500 0.78rem/1.2 var(--body); letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-2) }
+.mono { font-family: var(--mono) }
+
+header.top { display: flex; flex-wrap: wrap; gap: 12px 28px; align-items: center; justify-content: space-between; padding-block: 8px 20px }
+.mark { font: 500 1.6rem var(--display); letter-spacing: -0.02em; display: flex; align-items: baseline; gap: 2px }
+.mark .slash { color: var(--accent) }
+nav { display: flex; flex-wrap: wrap; gap: 6px 22px }
+nav a { color: var(--ink-2); text-decoration: none; font-size: 0.95rem }
+nav a:hover, nav a:focus-visible { color: var(--ink); text-decoration: underline; text-underline-offset: 3px }
+
+.hero { display: grid; gap: 40px; padding-block: clamp(40px, 8vw, 96px) clamp(32px, 5vw, 56px) }
+.hero-copy { display: grid; gap: 22px; max-width: 760px; min-width: 0 }
+.hero-copy .lede { font-size: 1.15rem; color: var(--ink-2) }
+.ctas { display: flex; flex-wrap: wrap; gap: 12px; padding-top: 6px }
+.btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 20px; font: 500 1rem var(--body); border: 1px solid var(--ink); border-radius: 10px; cursor: pointer; text-decoration: none; background: transparent; color: var(--ink) }
+.btn.primary { background: var(--ink); color: var(--paper) }
+.btn:hover { border-color: var(--accent) }
+.btn.primary:hover { background: var(--accent); border-color: var(--accent) }
+.btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px }
+figure { margin: 0 }
+.shot { border-radius: 14px; border: 1px solid var(--rule); background: var(--card); display: block; width: 100%; height: auto }
+.hero figure { min-width: 0 }
+.dim { margin-top: 10px; color: var(--ink-2); font-size: 0.88rem }
+
+.notice { padding: 16px 20px; background: var(--accent-soft); border-radius: 12px; font-size: 0.95rem }
+.notice strong { font-weight: 600 }
+
+section { padding-block: clamp(48px, 8vw, 88px); border-top: 1px solid var(--rule); display: grid; gap: 28px }
+.sec-head { display: grid; gap: 10px }
+.tag { display: none }
+
+.gallery { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 36px 28px }
+.gallery figure { display: grid; gap: 14px; align-content: start }
+.gallery figcaption { display: grid; gap: 4px }
+.gallery figcaption p { font-size: 0.97rem; color: var(--ink-2) }
+
+.familiar { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 40px }
+.cmd { background: var(--card); border: 1px solid var(--rule); border-radius: 14px; padding: 20px; font: 400 0.9rem/1.85 var(--mono); overflow-x: auto; white-space: pre }
+.cmd .p { color: var(--accent) }
+.cmd .c { color: var(--ink-2) }
+ul.plain { margin: 0; padding-left: 1.1em; display: grid; gap: 8px; max-width: 60ch }
+
+.stages { width: 100%; border-collapse: collapse; font-size: 0.98rem }
+.stages-wrap { overflow-x: auto }
+.stages th, .stages td { text-align: left; padding: 14px 16px 14px 0; border-bottom: 1px solid var(--rule); vertical-align: top }
+.stages th { font: 500 0.78rem var(--body); letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-2) }
+.stages td:first-child { font-family: var(--display); font-size: 1.1rem }
+.stages td strong { font-weight: 400 }
+.pill { display: inline-block; padding: 3px 11px; border-radius: 99px; font: 500 0.8rem var(--body); white-space: nowrap; background: var(--card); border: 1px solid var(--rule) }
+.pill.ok { color: var(--ok) } .pill.wip { color: var(--warn) } .pill.next { color: var(--ink-2) }
+
+.join { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 3fr); gap: 40px }
+form { display: grid; gap: 16px; background: var(--card); border: 1px solid var(--rule); border-radius: 16px; padding: clamp(18px, 3vw, 28px) }
+.row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px }
+.field { display: grid; gap: 6px; min-width: 0 }
+.field label, fieldset legend { font-weight: 500; font-size: 0.93rem }
+input[type=text], input[type=email], textarea, select { width: 100%; font: 400 1rem var(--body); color: var(--ink); background: var(--paper); border: 1px solid var(--rule); border-radius: 8px; padding: 10px 12px }
+input:focus-visible, textarea:focus-visible, select:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px }
+textarea { min-height: 96px; resize: vertical }
+fieldset { border: 0; padding: 0; margin: 0; display: grid; gap: 8px }
+.checks { display: flex; flex-wrap: wrap; gap: 8px 18px }
+.checks label { display: flex; gap: 6px; align-items: center; font-size: 0.97rem }
+input[type=checkbox] { accent-color: var(--accent) }
+.hint { font-size: 0.88rem; color: var(--ink-2) }
+.status { font-size: 0.95rem; min-height: 1.4em }
+.status.ok { color: var(--ok) } .status.err { color: var(--warn) }
+
+.owner { border: 1px dashed var(--accent); border-radius: 12px; padding: 18px; display: grid; gap: 12px }
+.owner table { width: 100%; border-collapse: collapse; font-size: 0.92rem }
+.owner td, .owner th { text-align: left; padding: 8px 10px 8px 0; border-bottom: 1px solid var(--rule); vertical-align: top }
+.owner th { font: 500 0.74rem var(--body); text-transform: uppercase; letter-spacing: 0.06em; color: var(--ink-2) }
+.owner-wrap { overflow-x: auto }
+
+.titleblock { display: flex; flex-wrap: wrap; gap: 8px 32px; border-top: 1px solid var(--rule); padding-top: 28px; color: var(--ink-2); font-size: 0.92rem }
+.titleblock > div { display: flex; gap: 8px; align-items: baseline }
+.titleblock .v { color: var(--ink) }
+.legal { padding-top: 12px; font-size: 0.85rem; color: var(--ink-2); max-width: 70ch }
+
+@media (max-width: 860px) {
+  .familiar, .join { grid-template-columns: minmax(0, 1fr) }
+  .gallery { grid-template-columns: repeat(2, minmax(0, 1fr)) }
+}
+@media (max-width: 520px) {
+  .gallery { grid-template-columns: minmax(0, 1fr) }
+  .row2 { grid-template-columns: minmax(0, 1fr) }
+}
+@media (prefers-reduced-motion: no-preference) { .btn { transition: background .15s, color .15s, border-color .15s } }
+</style>
+<style>
+.notes { display: grid; gap: 18px; max-width: 760px }
+.notes h2 { padding-top: 28px; border-top: 1px solid var(--rule); margin-top: 18px }
+.notes h3 { padding-top: 8px }
+.notes ul, .notes ol { margin: 0; padding-left: 1.2em; display: grid; gap: 8px; max-width: 64ch }
+.notes strong { font-weight: 600 }
+.notes .meta { color: var(--ink-2) }
+.notes .sign { font-family: var(--display); font-size: 1.2rem; color: var(--ink-2); padding-top: 20px }
+</style>
+</head>
+<body>
+<div class="sheet"><div class="inner">
+<header class="top">
+  <a class="mark" href="index.html" style="color:inherit;text-decoration:none" aria-label="Drawvisio/n home">Drawvisio<span class="slash">/</span>n</a>
+  <nav aria-label="Pages"><a href="index.html">Home</a><a href="index.html#join">Join the testers</a></nav>
+</header>
+<div class="hero" style="padding-bottom:24px"><div class="hero-copy">
+  <span class="label">Release notes</span>
+  <h1>What's new</h1>
+</div></div>
+<article class="notes">
+<p class="meta"><strong>Tester build 77, 30 October 2026</strong></p>
+<p>Drawvisio/n is a 3D design tool for architects that runs in the browser. You picture a building, draw or describe it, and get a scaled model you can take plans, sections, elevations and sheets from. If you used DrawVision at HOK, many habits will feel familiar: a typed command line, layers and plot styles, model and paper space. Drawvisio/n is a new, independent tool and has no connection with HOK.</p>
+<p>Thank you for testing. This is an early build, so please tell me what breaks, what feels slow, and what you reach for and can't find.</p>
+<h2>Getting started</h2>
+<ul>
+<li>Open the tester link you were sent. It asks you to sign in before it opens.</li>
+<li>Start a new project from <strong>File › New</strong>, or open the sample project to look around first.</li>
+<li>Your work saves in your own browser on that computer. To move a project to another computer or browser, use <strong>File › Export › Project</strong> and then <strong>File › Import</strong> on the other side.</li>
+<li>The interface follows a Blender-style layout by default: menus across the top, workspace tabs (Layout, Modeling, Editing, Shading, AI, Review, Drawings), a tool shelf on the left and a tabbed properties panel on the right. If you prefer an AutoCAD-style ribbon, choose <strong>Window › Layout</strong>.</li>
+<li>Every tool can also be typed on the command line under the drawing, with suggestions as you type. Press Esc to step back, Enter to accept the value shown in brackets.</li>
+</ul>
+<h2>What you can do in this build</h2>
+<h3>Drawing and editing</h3>
+<ul>
+<li>Lines, polylines, polygons, rectangles, circles, arcs and curves, with node editing.</li>
+<li>Walls, slabs, columns, doors, windows, rooms and working levels.</li>
+<li>Snaps you can call one at a time with a single key while drawing: M midpoint, E end, C centre, N nearest, I intersection, P perpendicular, F nearest point. F3 and F8 to F10 toggle the familiar running snaps.</li>
+<li>Axis locks: press X or Y while drawing to hold the next point to that axis. In 3D, Z stands up a vertical drawing plane at the last point.</li>
+<li>Work planes: draw on the ground, on vertical planes, or on any face you click.</li>
+<li>Move, copy, rotate, scale, mirror, offset, join, explode, merge, trim, extend, break, fillet, chamfer, divide and measure along a line.</li>
+<li>Box, crossing and lasso selection; double-click selects lines joined end to end.</li>
+<li>Grids: lines, dots or polar, with your own spacing, origin and boundary.</li>
+<li>Undo and redo (Ctrl+Z, Ctrl+Y), and Delete or Backspace takes back the last point while drawing.</li>
+</ul>
+<h3>3D modelling</h3>
+<ul>
+<li>Massing shapes: box, cylinder, cone, pyramid, sphere, dome and torus, all editable after placing.</li>
+<li>Push/pull on shapes, slabs, walls and the sides of extruded forms.</li>
+<li>Merge, subtract and intersect solids. The pieces stay editable: double-click a merged body to reopen its parts.</li>
+<li>Roofs: hip, gable, shed and flat, generated from a plan outline.</li>
+<li>Terrain from spot heights, with contours shown in plan.</li>
+<li>Materials, sun and shadows, and pictures mapped onto surfaces.</li>
+<li>Display styles: wireframe, hidden line, shaded, textured and X-ray.</li>
+<li>Design options: save, duplicate and compare schemes, with a ghosted view of the others.</li>
+<li>Parametric generation: draw guide lines and let walls, slabs, columns or rooms follow them as you edit.</li>
+<li>ViewCube and axis icon you can drag to orbit, with 90° turn buttons.</li>
+</ul>
+<h3>Drawings and sheets</h3>
+<ul>
+<li>North, south, east and west elevations and section cuts taken straight from the model.</li>
+<li>Model space and paper space, with sheets, viewports and named print views.</li>
+<li>Dimensions, text (with TrueType fonts, including a hand-lettered architect's font), hatches and annotative scaling.</li>
+<li>Plot-style layers, and per-object colour, line type and line weight with visual pickers.</li>
+<li>PDF export at real sheet size.</li>
+</ul>
+<h3>Library and products</h3>
+<ul>
+<li>A built-in library of furniture and fittings drawn to real sizes: beds, sofas, living and dining sets, desks, wardrobes, kitchen runs with sink, hob and wall units, islands, WC, basin, bath, shower, cars, bicycles, people and trees. Each one has a proper plan symbol and shows in elevations and sections.</li>
+<li>2D profile figures (people, trees, cars, a dog) for elevations and presentation.</li>
+<li>Save your own components to the library and reuse them in any project.</li>
+<li>Manufacturer products: search BIMobject from inside Drawvisio/n, download the product, drop the file in, and it lands as a linked component on a Products layer. Brand folders link to IKEA, Kohler, TOTO, GROHE, Duravit, American Standard, Herman Miller and Steelcase, and a products schedule lists what you've used.</li>
+</ul>
+<h3>Import and export</h3>
+<ul>
+<li><strong>Bring in:</strong> DXF (2D and 3D faces and meshes), SVG, images, pasted coordinate lists, and 3D models in OBJ, glTF/GLB, COLLADA (.dae, which every edition of SketchUp exports), FBX (from 3ds Max), 3DS, STL and 3MF.</li>
+<li><strong>DWG:</strong> open the file in the companion DWG converter page first (ask me for the link), then import the DXF it gives you. 3D faces and meshes come through at their real heights.</li>
+<li><strong>Send out:</strong> DXF, SVG, PNG, PDF sheets, CSV schedules, OBJ with materials, and glTF/GLB for Blender, game engines and web viewers.</li>
+</ul>
+<h3>AI assistant</h3>
+<ul>
+<li>Describe a building in plain words and the assistant proposes a model, asking questions where your brief is unclear. In this build it places walls, slabs, columns, doors, windows, rooms and levels.</li>
+<li>This is the part I most want feedback on. Please try it on a real brief and tell me where it gets things wrong.</li>
+</ul>
+<h3>Phones and tablets</h3>
+<ul>
+<li>Works with touch on iPad and iPhone: tap to click, two-finger tap to finish or open the menu, and long-press to aim with a magnified crosshair. A row of touch keys gives you the axis locks and snaps.</li>
+</ul>
+<h2>Known limits</h2>
+<ul>
+<li>The browser page can't print directly. Export a PDF and print that.</li>
+<li>PDF sheets are exported as high-resolution images, not as vector linework.</li>
+<li>DXF downloads arrive inside a .zip file. Unzip it before opening in AutoCAD or Revit.</li>
+<li>Projects save in the browser you used. Clearing your browser data clears them, so export anything you want to keep.</li>
+<li>SketchUp .skp and 3ds Max .max files can't be opened directly. Export COLLADA (.dae) from SketchUp or FBX from 3ds Max instead.</li>
+<li>DWG files with ACIS solids, regions or surfaces won't convert. In AutoCAD, use FBXEXPORT, or MESHSMOOTH then EXPLODE to turn them into 3D faces first.</li>
+<li>The UCS works in the plan plane only. Push/pull and node editing don't yet follow tilted work planes.</li>
+<li>Wall corners are simple butt joints.</li>
+<li>Components are copies, not linked definitions, so editing one does not update the others.</li>
+<li>Axonometric viewports on sheets draw as wireframe.</li>
+<li>Not yet available: stairs, stretch, align, polar array, IFC import, and live collaboration.</li>
+<li>Some screens still show the older spelling "DrawVision" in the header. That will change.</li>
+</ul>
+<h2>Coming next</h2>
+<p>These are already working in my preview build and will reach testers in the next release:</p>
+<ul>
+<li><strong>A calmer look.</strong> A lighter, cleaner interface with a soft purple tone throughout, clearer headings and colour-coded tool families.</li>
+<li><strong>A presentation 3D viewer.</strong> One bar to switch colour or black-and-white, shaded, bold outlines and shadows; home, plan, perspective and isometric views; turntable and full-window modes; a labelled view cube with compass.</li>
+<li><strong>2D drawing on sheets.</strong> Draw shapes and freehand directly in paper space, and place a library of 2D symbols at true scale (people, furniture, fixtures, appliances, vehicles, trees, in plan and elevation). Bring your own SVG, DXF, PNG or JPG drawings onto sheets and keep them in a "My drawings" folder.</li>
+<li><strong>Paint and fill.</strong> A colour and material palette with recent colours, opacity, gradients, hatches and 18 materials, plus a dropper to pick colours from the drawing or the screen.</li>
+<li><strong>Page setup.</strong> ARCH A to E, ISO, Letter, Legal and Tabloid sizes or a custom size, orientation, margins, title block position, paper colour, frame and grid, with quick presets.</li>
+<li><strong>Group and ungroup</strong> from the selection bar (Ctrl+G, Ctrl+Shift+G).</li>
+<li><strong>DWG import inside the app</strong>, so you no longer need to unzip the converter's output yourself.</li>
+<li><strong>Bolder edges</strong> in hidden-line views.</li>
+</ul>
+<p>Further out: stairs, the assistant using roofs, materials and terrain, IFC import, and the editing tools listed above.</p>
+<h2>How to send feedback</h2>
+<p>For each issue, a few lines help a lot:</p>
+<ol>
+<li>What you were doing.</li>
+<li>What you expected, and what happened instead.</li>
+<li>A screenshot if you can.</li>
+<li>Your device and browser (for example, Windows laptop with Chrome, or iPad with Safari).</li>
+</ol>
+<p>Thank you for giving it your time.</p>
+<p class="sign">Drawvisio/n — picture a building, get a scaled model you can draw from.</p>
+</article>
+</div>
+<div class="titleblock" style="margin-top:56px">
+  <div><span class="label">Project</span><span class="v">Drawvisio/n · 3D CAD for architects</span></div>
+  <div><span class="label">Build</span><span class="v">Tester build 77</span></div>
+  <div><span class="label">Updated</span><span class="v">30 October 2026</span></div>
+</div>
+<div class="legal">Drawvisio/n is an independent project and is not affiliated with, endorsed by or connected to HOK. Any third-party names belong to their owners.</div>
+</div>
+</body>
+</html>
