@@ -6,7 +6,7 @@
 <meta name="description" content="What's new in the Drawvisio/n tester build.">
 <title>What's new · Drawvisio/n</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500&family=Hanken+Grotesk:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=Instrument+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <style>
 /* Layout: one calm column on warm paper; generous whitespace, serif headlines, quiet sans body, one clay accent. */
 :root {
@@ -137,6 +137,43 @@ input[type=checkbox] { accent-color: var(--accent) }
 .notes strong { font-weight: 600 }
 .notes .meta { color: var(--ink-2) }
 .notes .sign { font-family: var(--display); font-size: 1.2rem; color: var(--ink-2); padding-top: 20px }
+/* App house style: white panels, hairlines, purple family, Poppins names. */
+:root {
+  --paper: #f6f3f9; --card: #ffffff; --ink: #2a1838; --ink-2: #776a86; --rule: #e6dfee;
+  --accent: #6a2c91; --accent-soft: #efe5f8; --ok: #3d7a52; --warn: #9a5b00;
+  --d1: #6a2c91; --d2: #8e4bbd; --d3: #a76fd0; --d4: #5a2380; --d5: #b98ad9; --d6: #7a3db0;
+  --display: "Poppins", "Instrument Sans", system-ui, sans-serif;
+  --body: "Instrument Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --paper: #17111d; --card: #1f1827; --ink: #efe8f6; --ink-2: #a596b5; --rule: #392d45;
+  --accent: #c39bf0; --accent-soft: #3a2650; --ok: #84c595; --warn: #e4ac68;
+  --d1: #c39bf0; --d2: #b083e6; --d3: #d4b5f5; --d4: #9d6fd8; --d5: #e0c8fa; --d6: #a77ee0; color-scheme: dark } }
+:root[data-theme="dark"] {
+  --paper: #17111d; --card: #1f1827; --ink: #efe8f6; --ink-2: #a596b5; --rule: #392d45;
+  --accent: #c39bf0; --accent-soft: #3a2650; --ok: #84c595; --warn: #e4ac68;
+  --d1: #c39bf0; --d2: #b083e6; --d3: #d4b5f5; --d4: #9d6fd8; --d5: #e0c8fa; --d6: #a77ee0; color-scheme: dark }
+body { font-size: 16.5px }
+h1, h2, h3, .mark { font-family: var(--display); font-weight: 600; letter-spacing: -0.02em }
+h1 { font-size: clamp(2.2rem, 5.4vw, 3.8rem) }
+.mark { font-weight: 700; color: var(--accent) }
+.mark .slash { color: var(--d3) }
+.label { color: var(--accent); font-weight: 600 }
+.btn { border-radius: 999px; border-color: var(--accent); color: var(--accent) }
+.btn.primary { background: var(--accent); border-color: var(--accent); color: var(--card) }
+.btn.primary:hover { background: var(--d2); border-color: var(--d2) }
+.shot { border-radius: 12px; background: var(--card) }
+.notice { background: var(--accent-soft); border-left: 3px solid var(--accent) }
+section { border-top-color: var(--rule) }
+.gallery figure { background: var(--card); border: 1px solid var(--rule); border-radius: 14px; padding: 12px 12px 16px }
+.gallery figure .shot { border: 0; border-radius: 8px }
+.gallery figure:nth-child(6n+1) h3 { color: var(--d1) } .gallery figure:nth-child(6n+2) h3 { color: var(--d2) }
+.gallery figure:nth-child(6n+3) h3 { color: var(--d3) } .gallery figure:nth-child(6n+4) h3 { color: var(--d4) }
+.gallery figure:nth-child(6n+5) h3 { color: var(--d5) } .gallery figure:nth-child(6n+6) h3 { color: var(--d6) }
+.stages td:first-child { font-family: var(--display); font-weight: 500; font-size: 1rem; color: var(--accent) }
+.pill { background: var(--accent-soft); border-color: transparent }
+.cmd { background: var(--card) }
+.cmd .p { color: var(--accent) }
 </style>
 </head>
 <body>
